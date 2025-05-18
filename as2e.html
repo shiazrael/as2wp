@@ -1,0 +1,282 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="as2ecss.css">
+    <title>ESPER</title>
+</head>
+<body>
+   <div class="bg-image"></div>
+    <div class="navbar-inner" id="nav1">
+        <nav class="navbar">
+            <div class="logo">DISLIGHT</div>
+            <ul class="nav-items">
+                 <li><a href="as2.html">HOME</a></li>
+                <li><a href="as2e.html">ESPER</a></li>
+                
+                <li><a href="as2bo.html">BOSSES</a></li>
+                <li><a href="as2a.html">ABOUT</a></li>
+                <li><a href="as2c.html">COMMUNITY</a></li>
+            </ul>
+            <button class="play-button">???</button>
+        </nav>
+    </div>
+
+<br><br><br><br><br>
+
+<div id="grid-button-container" role="list" aria-label="Selection grid of items">
+ 
+</div>
+
+
+<div id="main-container" role="main" aria-label="Content display section">
+    <section class="lore" aria-label="Lore content">
+        <h1 id="lore-title">Background Lore</h1>
+       
+        <div id="lore-content"></div>
+    </section>
+
+    <div class="video-container" id="video-container" aria-label="Video player section">
+        <video id="background-video" autoplay muted loop playsinline>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="back-button" id="back-button" aria-label="Go back to selection grid">GO BACK</button>
+    </div>
+
+    <section class="abilities" aria-label="Abilities content">
+        <h1 id="abilities-title">Abilities</h1>
+        <ul id="abilities-list"></ul>
+    </section>
+</div>
+
+<script>
+   
+    const items = [
+        {
+            id: 1,
+            label: "Hyde (Hades)",
+            cover: "hydecover.webp",
+            video: "hyde.mp4",
+            lore: `<p>Hyde is a strong Fighter Esper with an unusual immunity to buffs and debuffs.
+                   Hyde's passive, Reaper, reduces all damage taken and renders Hyde immune to the effects of any buffs and debuffs. 
+                   Hyde's ATK increases when buffs or debuffs are applied. When a teammate dies, Hyde gains a huge ATK boost. 
+                   His Cerberus can damage a target while stealing their buffs and restoring HP.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally RESIST in Point War and Knockout by 50%", image: "hc1.webp" },
+                { name: "Underworld Curse", description: "Attacks 1 enemy 2 times. Damage per hit: 65% ATK. Each hit steals 1 buff.", image: "h1.webp" },
+                { name: "Reaper (Passive)", description: "Hades cannot receive buffs or debuffs. Damage taken -10%. Gains stacks on buffs/debuffs.", image: "h2.webp" },
+                { name: "Cerberus", description: "Steals 1 buff from each enemy. Attacks all enemies. Damage: 110% ATK.", image: "h3.webp" }
+            ]
+        },
+        {
+            id: 2,
+            label: "Li Ling (Meta Nezha)",
+            cover: "nezhacover.webp",
+            video: "liling.mp4",
+            lore: `<p>Li Ling's Esperhood gains a significant power boost after undergoing the Miracle Trial to become Meta Nezha.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally ATK by 40%", image: "lc1.webp" },
+                { name: "Untamed Spear", description: "Attacks 1 enemy. Damage per hit: 30% ATK. Each hit absorbs 10% AP.", image: "l1.webp" },
+                { name: "Warrior Shield", description: "If Li Ling has Expurgation at the start of his turn, unlocks the ability Harrowing.", image: "l2.webp" },
+                { name: "Black Lotus Strike", description: "When Li Ling has 3 stacks of Endless Fire at the start of his turn, attacks all enemies 3 times.", image: "l3.webp" }
+            ]
+        },
+        {
+            id: 3,
+            label: "Drew (Meta Anubis)",
+            cover: "drewcover.webp",
+            video: "metadrew.mp4",
+            lore: `<p>Drew's Esperhood gains a significant power boost after undergoing the Miracle Trial to become Meta Anubis.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally RESIST in Point War and Knockout by 50%", image: "dc1.webp" },
+                { name: "Decree of Justice", description: "Attacks 1 enemy. Damage: 5% max HP. Permanently steals 40 of the target's ATK and DEF.", image: "d1.webp" },
+                { name: "Eternal Passage (Passive)", description: "When Meta Drew dies, a revival countdown begins.", image: "d2.webp" },
+                { name: "Wrath of Duat", description: "Passive: Every time an allied Esper takes 30,000 damage, they gain 1 stack of Burden of Duat.", image: "d3.webp" }
+            ]
+        },
+        {
+            id: 4,
+            label: "Gaius (Zeus)",
+            cover: "gaiuscover.webp",
+            video: "gaius.mp4",
+            lore: `<p>Gaius was one of the first Espers to gain power, and he, along with a few others, formed the Esper Union.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally ATK in Point War and Knockout by 40%", image: "gc1.webp" },
+                { name: "Thunderstrike", description: "Attacks 1 enemy. Damage: 120%. All their debuffs +1 turn. Inflicts Stun for 1 turn.", image: "g1.webp" },
+                { name: "Thunder Judgement", description: "Summons lightning 5 times to attack random enemies. Damage per hit: 60% ATK.", image: "g2.webp" },
+                { name: "Thunderstorm", description: "Gains 1 turn. Buffs +1 turn. Gains a Shield for 2 turns.", image: "g3.webp" }
+            ]
+        },
+        {
+            id: 5,
+            label: "Javid (Shamash)",
+            cover: "javedcover.webp",
+            video: "javed.mp4",
+            lore: `<p>Possessing the divine power of Shamash, Javid was once the Chief Marshal of Mylo.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally ATK by 30%", image: "sc1.webp" },
+                { name: "Divine Wrath", description: "Attacks 1 enemy. Damage: 100% ATK. Inflicts DEF Down for 2 turns.", image: "s1.webp" },
+                { name: "Divine Might", description: "Attacks all enemies. Damage: 70% ATK. Inflicts Sear for 2 turns.", image: "s2.webp" },
+                { name: "Eternal Light", description: "Gains Sacred Flame for 2 turns. Inflicts Judgment Seal on all enemies for 2 turns.", image: "s3.webp" }
+            ]
+        },
+        {
+            id: 6,
+            label: "Sachiko (Hare of Inaba)",
+            cover: "sachikocover.webp",
+            video: "sachiko.mp4",
+            lore: `<p>Sachiko is indifferent to her own misfortunes. Content in her ability to bestow luck upon others.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Ally SPD +25%. For every 1 Twilight Order member deployed, SPD +10%.", image: "hc1.webp" },
+                { name: "Pollen Strike", description: "Attacks 1 enemy. Damage: 140% ATK. 75% chance of inflicting Stun for 1 turn.", image: "ss1.webp" },
+                { name: "Lucky Wishes", description: "Grants all allies SPD Up for 2 turns. All allies AP +15%.", image: "ss2.webp" },
+                { name: "Bunny Talisman", description: "Grants all allies ATK Up and Shield for 2 turns.", image: "ss3.webp" }
+            ]
+        },
+        {
+            id: 7,
+            label: "Feng Xun (Fu Xi)",
+            cover: "fengxuncover.webp",
+            video: "fengxun.mp4",
+            lore: `<p>After obtaining the divine power of Fu Xi, the laziest youth finds himself obliged to shoulder the heaviest responsibility.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally HP by 30%", image: "llc1.webp" },
+                { name: "Draconic Roar", description: "Attacks 1 enemy 3 times. Damage per hit: 15% ATK + 1% Max HP.", image: "ll1.webp" },
+                { name: "Chakra Strike", description: "Attacks all enemies 1 time. Damage: 30% ATK + 2% Max HP.", image: "ll2.webp" },
+                { name: "One Harmony", description: "Activates the Marsh Wind zone for 3 turns.", image: "ll3.webp" }
+            ]
+        },
+        {
+            id: 8,
+            label: "Lü Shang (Jiang Ziya)",
+            cover: "lushangcover.webp",
+            video: "lushang.mp4",
+            lore: `<p>Lü Shang, who possesses the power of Jiang Ziya, can almost always be found fishing by the river after work.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally HP in Point War, Knockout and Beatbout by 40%", image: "lsc1.webp" },
+                { name: "Reprimand", description: "Attacks 1 enemy. Damage 80%. ATK.Inflicts Silence for 1 turn.", image: "ls1.webp" },
+                { name: "Strategic Insight (Passive)", description: "At the start of a round and when Lü Shang revives, casts this ability if there any surviving allies other than himself. Gains Enlightened. Grants his allies Accentuated. When he falls, removes all stacks of Accentuated from his allies. At the start of the Accentuated carrier's turn, the following effects will activate based on the Esper type: Fighter: Increases ATK and damage throughout combat, up to a limited amount. Defender: Increases DEF and reduces damage received throughout combat, up to a limited amount. Support: Increases SPD throughout combat, up to a limited amount. All ability cooldowns -1 turn. Controller: Increases SPD and damage throughout combat, up to a limited amount. Inflicting ability effects won't miss and can't be resisted.", image: "ls2.webp" },
+                { name: "Might and Grace", description: "60% chance of inflicting Silence on all enemies for 1 turn(s).", image: "ls3.webp" }
+            ]
+        },
+        {
+            id: 9,
+            label: "Yuuhime (Izanami)",
+            cover: "yuuhimecover.webp",
+            video: "yuuhime.mp4",
+            lore: `<p>Normally, she is cold and indifferent. However, with the divine power of Izanami, she can become one with her weapon in battle and is a force to be reckoned with.</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Ally SPD +25%. For every 1 Twilight Order member (Yamato/Moroyama) deployed, SPD +10%.", image: "yc1.webp" },
+                { name: "Nether Jewel", description: "Attacks 1 enemy. Damage: 80% ATK. Amplifies damage based on the stack count of Hell's Hand. The enemy's ATK -8% throughout combat, up to -40%",image: "y1.webp" },
+                { name: "Death Gate", description: "Attacks all enemies. Damage: 30% ATK. Amplifies damage based on the stack count of Hell's Hand.Reduces the enemies Max HP by 100% Damage. Inflicts DEF Down for 1 turn.Passive: When any non-boss enemy gains AP Up, casts this ability, the targets AP -30%, and inflicts Hamstrung for 1 turn (won't miss and can't be resisted). Triggers once per turn.",image: "y2.webp" },
+                { name: "Beyond The Grave", description: "ttacks all enemies 2 times. Damage for the 1st hit: 10% ATK; damage for the 2nd hit: 90% ATK.The 1st hit inflicts Diseased for 2 turns; the 2nd hit reduces enemy Max HP by 20%, clears enemies AP, and inflicts Hamstrung for 1 turn before dealing damage. Passive: At the end of Yuuhime's action, gain 1 stack of Hell's Hand.", image: "y3.webp" }
+            ]
+        },
+        {
+            id: 10,
+            label: "Yun Chuan (Yang Jian)",
+            cover: "yunchuancover.webp",
+            video: "yunchuan.mp4",
+            lore: `<p>A guard from House Li with the powers of Yang Jian. The Union's defender of justice</p>`,
+            abilities: [
+                { name: "Captain Ability", description: "Increases ally ATK in Ritual Miracle, Sonic Miracle, Desolate Lands, Sentinel Hunt, Falsetto Fantasy, and Celestial Anomaly by 40%", image: "ycc1.webp" },
+                { name: "Roaring Thrust", description: "Attacks 1 enemy 3 times. Damage per hit: 40% ATK. 60% chance of inflicting Miss Rate Up for 2 turns..", image: "ycs1.webp" },
+                { name: "Whistling Stance (Passive)", description: "Critical hits inflict Third-Eye Seal on the target for 1 turn. When attacking enemies with Third-Eye Seal, summons Screamer (Yun Chuan's dog) to launch an assist attack (triggers 1 time per turn). Screamer's Damage: 25% ATK. Ignores DEF.Inflicts Sear on them for 2 turns.", image: "ycs2.webp" },
+                { name: "Guardian Lord", description: "Attacks all enemies 2 times. Damage per hit: 60% ATK. Inflicts SPD Down on all enemies for 2 turns. Grants Immunity to Yun Chuan for 2 turns. Grants SPD Up to all allies for 2 turns.", image: "ycs3.webp" }
+            ]
+        },
+       
+    ];
+
+    const gridContainer = document.getElementById('grid-button-container');
+    const mainContainer = document.getElementById('main-container');
+    const loreTitle = document.getElementById('lore-title');
+    const loreContent = document.getElementById('lore-content');
+    const abilitiesTitle = document.getElementById('abilities-title');
+    const abilitiesList = document.getElementById('abilities-list');
+    const videoElement = document.getElementById('background-video');
+    const videoSource = videoElement.querySelector('source');
+    const backButton = document.getElementById('back-button');
+
+
+    items.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'grid-button';
+        btn.setAttribute('role', 'listitem');
+        btn.setAttribute('aria-label', item.label);
+
+  
+        const coverDiv = document.createElement('div');
+        coverDiv.className = 'cover';
+        coverDiv.style.backgroundImage = `url('${item.cover}')`;
+        btn.appendChild(coverDiv);
+
+   
+        const labelDiv = document.createElement('div');
+        labelDiv.className = 'label';
+        labelDiv.textContent = item.label;
+        btn.appendChild(labelDiv);
+
+   
+        btn.addEventListener('click', () => {
+            showContent(item);
+        });
+
+   
+        btn.addEventListener('keydown', e => {
+            if(e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                btn.click();
+            }
+        });
+
+        gridContainer.appendChild(btn);
+    });
+
+
+    function showContent(item) {
+        loreTitle.textContent = `${item.label} - Background Lore`;
+        loreContent.innerHTML = item.lore;
+
+        abilitiesTitle.textContent = `${item.label} - Abilities`;
+      
+        abilitiesList.innerHTML = '';
+     
+        item.abilities.forEach(ability => {
+            const li = document.createElement('li');
+            const img = document.createElement('img');
+            img.src = ability.image;
+            img.alt = ability.name; 
+            li.appendChild(img);
+            li.appendChild(document.createTextNode(`${ability.name}: ${ability.description}`));
+            abilitiesList.appendChild(li);
+        });
+
+        if (item.video && item.video.length > 0) {
+            videoSource.src = item.video;
+            videoElement.load();
+        } else {
+            videoSource.src = "";
+            videoElement.load();
+        }
+
+        gridContainer.style.display = 'none';
+        mainContainer.style.display = 'flex';
+        backButton.style.display = 'inline-block';
+        videoElement.play();
+    }
+
+
+    backButton.addEventListener('click', () => {
+        mainContainer.style.display = 'none';
+        gridContainer.style.display = 'grid';
+        backButton.style.display = 'none';
+        videoSource.src = "";
+        videoElement.load();
+    });
+
+</script>
+</body>
+</html>
+
